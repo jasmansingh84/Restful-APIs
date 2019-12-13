@@ -2,6 +2,8 @@
 from marshmallow import fields, Schema
 import datetime
 from . import db
+from .BlogpostModel import BlogpostSchema
+from ..app import bcrypt
 
 
 class UserModel(db.Model):
@@ -59,7 +61,7 @@ class UserModel(db.Model):
     #####################
     # existing code remain #
     ######################
-    from ..app import bcrypt  # add this line
+
 
 class UserModel(db.Model):
         """
@@ -108,6 +110,39 @@ class UserModel(db.Model):
         def check_hash(self, password):
             return bcrypt.check_password_hash(self.password, password)
 
-        #####################
-        # existing code remain #
-        ######################
+
+
+
+    class UserModel(db.Model):
+            """
+            User Model
+            """
+
+            # table name
+            __tablename__ = 'users'
+
+            #####################
+            # existing code remains #
+            ########################
+            modified_at = db.Column(db.DateTime)
+            blogposts = db.relationship('BlogpostModel', backref='users', lazy=True)  # add this new line
+
+            #####################
+            # existing code remains #
+            ########################
+
+            def __repr(self):
+                return '<id {}>'.format(self.id)
+
+
+        class UserSchema(Schema):
+            """
+            User Schema
+            """
+            id = fields.Int(dump_only=True)
+            name = fields.Str(required=True)
+            email = fields.Email(required=True)
+            password = fields.Str(required=True)
+            created_at = fields.DateTime(dump_only=True)
+            modified_at = fields.DateTime(dump_only=True)
+            blogposts = fields.Nested(BlogpostSchema, many=True)
