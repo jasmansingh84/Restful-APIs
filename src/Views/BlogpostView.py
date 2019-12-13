@@ -35,24 +35,6 @@ def custom_response(res, status_code):
     status=status_code
   )
 
-
-#/src/views/BlogpostView.py
-# app initiliazation
-#####################
-# existing code remain #
-######################
-
-
-
-  """
-  Create Blogpost Function
-  """
-  # app initiliazation
-  #####################
-  # existing code remain #
-  ######################
-  return custom_response(data, 201)
-
 # add this function
 @blogpost_api.route('/', methods=['GET'])
 def get_all():
@@ -69,19 +51,7 @@ def get_all():
 # existing code remain #
 ######################
 
-  """
-  Create Blogpost Function
-  """
-  # app initiliazation
-  #####################
-  # existing code remain #
-  ######################
-  return custom_response(data, 201)
 
-  # app initiliazation
-  #####################
-  # existing code remain #
-  ######################
 
 @blogpost_api.route('/<int:blogpost_id>', methods=['GET'])
 def get_one(blogpost_id):
@@ -95,21 +65,8 @@ def get_one(blogpost_id):
   return custom_response(data, 200)
 
 
-  """
-  Create Blogpost Function
-  """
-# app initiliazation
-#####################
-# existing code remain #
-######################
+
   return custom_response(data, 201)
-
-
-# app initiliazation
-#####################
-# existing code remain #
-######################
-
 
 @blogpost_api.route('/<int:blogpost_id>', methods=['PUT'])
 @Auth.auth_required
@@ -132,3 +89,18 @@ def update(blogpost_id):
 
     data = blogpost_schema.dump(post).data
     return custom_response(data, 200)
+@blogpost_api.route('/<int:blogpost_id>', methods=['DELETE'])
+@Auth.auth_required
+def delete(blogpost_id):
+  """
+  Delete A Blogpost
+  """
+  post = BlogpostModel.get_one_blogpost(blogpost_id)
+  if not post:
+    return custom_response({'error': 'post not found'}, 404)
+  data = blogpost_schema.dump(post).data
+  if data.get('owner_id') != g.user.get('id'):
+    return custom_response({'error': 'permission denied'}, 400)
+
+  post.delete()
+  return custom_response({'message': 'deleted'}, 204)
