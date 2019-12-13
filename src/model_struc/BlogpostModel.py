@@ -64,7 +64,7 @@ class BlogpostModel(db.Model):
             #####################
             # existing code remains #
             ########################
-            self.owner_id = data.get('owner_id) # add this new line
+            self.owner_id = data.get('owner_id)
             self.created_at = datetime.datetime.utcnow()
             self.modified_at = datetime.datetime.utcnow()
 
@@ -73,7 +73,7 @@ class BlogpostModel(db.Model):
         def __repr__(self):
             return '<id {}>'.format(self.id)
 
-    # add this new class
+
     class BlogpostSchema(Schema):
         """
         Blogpost Schema
