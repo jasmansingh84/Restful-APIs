@@ -3,11 +3,11 @@
 from flask import Flask
 
 from .config import app_config
-from .models import db, bcrypt
+from .model_struc import db, bcrypt
 
 # import user_api blueprint
 from .Views.UserView import user_api as user_blueprint
-from .Views.BlogpostView import Restful_APIs as blogpost_blueprint
+from .Views.BlogpostView import blogpost_api as blogpost_blueprint
 
 
 def create_app(env_name):
