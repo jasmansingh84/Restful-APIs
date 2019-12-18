@@ -1,6 +1,10 @@
 # src/model_struc/UserModel.py
 from marshmallow import fields, Schema
 import datetime
+
+import value
+
+from src.model_struc import BlogpostSchema
 from . import db
 from .BlogpostModel import BlogpostSchema
 from ..app import bcrypt
@@ -113,7 +117,7 @@ class UserModel(db.Model):
 
 
 
-    class UserModel(db.Model):
+class UserModel(db.Model):
             """
             User Model
             """
@@ -135,7 +139,7 @@ class UserModel(db.Model):
                 return '<id {}>'.format(self.id)
 
 
-        class UserSchema(Schema):
+class UserSchema(Schema):
             """
             User Schema
             """
