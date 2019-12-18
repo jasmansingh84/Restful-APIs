@@ -51,22 +51,20 @@ class BlogpostModel(db.Model):
 
 
 
- class BlogpostModel(db.Model):
-        """
-        Blogpost Model
-        """
+class BlogpostModel(db.Model):
 
-        __tablename__ = 'blogposts'
-        contents = db.Column(db.Text, nullable=False)
-        owner_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)  # add this new line
+    __tablename__ = 'blogposts'
 
-        def __init__(self, data):
-            #####################
+    contents = db.Column(db.Text, nullable=False)
+    owner_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)  # add this new line
+
+    def __init__(self, data):
+        #####################
             # existing code remains #
             ########################
-            self.owner_id = data.get('owner_id)
-            self.created_at = datetime.datetime.utcnow()
-            self.modified_at = datetime.datetime.utcnow()
+        self.owner_id = data.get('owner_id')
+        self.created_at = datetime.datetime.utcnow()
+        self.modified_at = datetime.datetime.utcnow()
 
 
 
@@ -74,7 +72,7 @@ class BlogpostModel(db.Model):
             return '<id {}>'.format(self.id)
 
 
-    class BlogpostSchema(Schema):
+class BlogpostSchema(Schema):
         """
         Blogpost Schema
         """

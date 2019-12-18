@@ -57,8 +57,8 @@ class Auth():
         Auth decorator
         """
 
-        @wraps(func)
-        def decorated_auth(*args, **kwargs):
+    @wraps(func)
+    def decorated_auth(*args, **kwargs):
             if 'api-token' not in request.headers:
                 return Response(
                     mimetype="application/json",
@@ -83,6 +83,6 @@ class Auth():
                     status=400
                 )
             g.user = {'id': user_id}
-            return func(*args, **kwargs)
+    return func(*args, **kwargs)
 
-        return decorated_auth
+    return decorated_auth
